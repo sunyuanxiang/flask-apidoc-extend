@@ -1,10 +1,10 @@
 from setuptools import setup
 
 setup(
-    name='flask-apidoc-extend',
-    version='0.1.0',
+    name='Flask-Apidoc-Extend',
+    version='0.1.1',
     packages=['flask_apidoc_extend'],
-    url='https://github.com/sunyuan_xiang/flask-apidoc-extend',
+    url='https://github.com/sunyuanxiang/flask-apidoc-extend',
     license='MIT',
     author='sun yuanxiang',
     author_email='apidocer@163.com',
