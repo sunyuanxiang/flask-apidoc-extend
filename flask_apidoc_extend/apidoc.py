@@ -45,7 +45,7 @@ class ApiDoc:
                  
 
     def register_command(self, app):
-        @app.cli.command(with_appcontext=False)    
+        @app.cli.command(with_appcontext=False, help='generates apidoc files')    
         def apidoc():
             apidoc_cmd = ['apidoc']     
             if self.input_path:

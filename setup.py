@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
     
 setup(
     name='Flask-Apidoc-Extend',
-    version='0.1.2',
+    version='0.1.3',
     packages=['flask_apidoc_extend'],
     url='https://github.com/sunyuanxiang/flask-apidoc-extend',
     license='MIT',
