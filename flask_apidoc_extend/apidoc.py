@@ -1,9 +1,7 @@
 import subprocess
 
-from flask import Blueprint, make_response
+from flask import Blueprint, make_response, helpers
 from werkzeug.exceptions import NotFound
-import click
-import warnings
 
 class ApiDoc:
     """
@@ -38,10 +36,15 @@ class ApiDoc:
         if app is not None:
             self.init_app(app)
 
-    def init_app(self, app):
-        self.register_command(app)
-        if self.mount:       
+    def init_app(self, app):  
+        """if self.mount is True ,apidoc files folder will be under the same folder with your app,
+           else it will be under your project root.
+        """          
+        if self.mount:
+            root_path = helpers.get_root_path(app.import_name)      
+            self.output_path = '/'.join([root_path, self.output_path])
             self.mount_to_app(app)  
+        self.register_command(app) 
                  
 
     def register_command(self, app):
@@ -50,8 +53,7 @@ class ApiDoc:
             apidoc_cmd = ['apidoc']     
             if self.input_path:
                 apidoc_cmd.append('-i')
-                apidoc_cmd.append(self.input_path)
-         
+                apidoc_cmd.append(self.input_path)        
             if self.output_path:
                 apidoc_cmd.append('-o')
                 apidoc_cmd.append(self.output_path)
