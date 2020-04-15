@@ -44,6 +44,8 @@ Initializes a new instance of ApiDoc.
          :param private       Include private APIs in output.
 example:
 ```
+from flask_apidoc_extend import ApiDoc
+
 app = Flask(__name__)
 ApiDoc(app=app)
 ```
