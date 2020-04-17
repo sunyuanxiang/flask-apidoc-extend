@@ -3,6 +3,9 @@ import subprocess
 from flask import Blueprint, make_response, helpers
 from werkzeug.exceptions import NotFound
 
+from .utils import apidoc_cmd as _apidoc
+
+
 class ApiDoc:
     """
     class ApiDoc adds command apidoc to Flask to generate the apidoc files.
@@ -50,7 +53,7 @@ class ApiDoc:
     def register_command(self, app):
         @app.cli.command(with_appcontext=False, help='generates apidoc files')    
         def apidoc():
-            apidoc_cmd = ['apidoc']     
+            apidoc_cmd = [_apidoc()]
             if self.input_path:
                 apidoc_cmd.append('-i')
                 apidoc_cmd.append(self.input_path)        
@@ -64,7 +67,8 @@ class ApiDoc:
             if self.private:
                 apidoc_cmd.append('-p')
                 apidoc_cmd.append(self.private)   
-            popen = subprocess.Popen(apidoc_cmd, shell=True)
+            print(apidoc_cmd)
+            popen = subprocess.Popen(apidoc_cmd)
             popen.communicate()
             return popen.returncode
 
@@ -88,9 +92,10 @@ class ApiDoc:
             try:         
                 rp = make_response(__apidoc_bp.send_static_file('index.html'))
             except NotFound:
-                return 'Maybe you should run \'flask apidoc\' command first'
+                return '<h2>Maybe you should run \'$ flask apidoc\'  command first</h2>'
             return rp
         app.register_blueprint(__apidoc_bp)
-    
+
+
 
 
