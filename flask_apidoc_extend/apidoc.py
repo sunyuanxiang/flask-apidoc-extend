@@ -1,18 +1,18 @@
 # -*- coding: UTF-8 -*-
-import subprocess,sys
+import subprocess
+import sys
 
 from flask import Blueprint, make_response, helpers, json
 from werkzeug.exceptions import NotFound
 import click
-from collections import OrderedDict
 
-from .utils import apidoc_cmd as _apidoc, render_markdown
-from flask_apidoc_extend.utils import sort_app_data
+from .utils import apidoc_cmd as _apidoc, render_markdown, sort_app_data
 
 
 class ApiDoc:
     """
-    class ApiDoc adds command apidoc to Flask to generate the apidoc files.
+    class ApiDoc adds command apidoc to Flask to generate the apidoc
+    files.
     """
 
     def __init__(self,
@@ -26,17 +26,18 @@ class ApiDoc:
         """
         Initializes a new instance of ApiDoc.
 
-         :param Input_path:   source dirname. Location of your project files.
+         :param input_path:   source dirname. Location of your project
+         files.
          :param output_path:  Output dirname. Location where to put to 
-          generated documentation.default is 'static/docs'
-         :param template_path:Use template for output files. You can create 
-         and use your own template.
-         :param app:          your flask instence         
-         :param mount:        register blueprint of the apidoc files to your
-          flask application.then you can access 
-         :param url_path:     The url path for the apidoc files.default is
-          'apidoc'
-         :param private       Include private APIs in output.
+         generated documentation.default is 'static/docs'
+         :param template_path:Use template for output files. You can
+         create and use your own template.
+         :param app:  your flask instence
+         :param mount:  register blueprint of the apidoc files to your
+         flask application.then you can access
+         :param url_path: The url path for the apidoc files.default is
+         'apidoc'
+         :param private: Include private APIs in output.
         """
         self.input_path = input_path
         self.output_path = output_path or 'static/docs'
@@ -48,9 +49,10 @@ class ApiDoc:
             self.init_app(app)
 
     def init_app(self, app):
-        """if self.mount is True ,apidoc files folder will be under the
-           same folder with your app,
-           else it will be under your project root.
+        """
+        if self.mount is True ,apidoc files folder will be under the
+        same folder with your app,else it will be under your project
+        root.
         """
         if self.mount:
             root_path = helpers.get_root_path(app.import_name)
@@ -83,7 +85,8 @@ class ApiDoc:
             if export:
                 result = self.__export2markdown()
                 sys.stdout.write('Export success\n') \
-                if result else sys.stdout.write('No data can be exported\n')
+                    if result else sys.stdout.write(
+                    'No data can be exported\n')
             sys.stdout.write('apidoc files has been generated into {}'
                              .format(self.output_path))
             return popen.returncode
@@ -112,7 +115,7 @@ class ApiDoc:
             return rp
 
         app.register_blueprint(__apidoc_bp)
-        
+
     def __export2markdown(self):
         with open(self.output_path + '/api_data.json',
                   encoding='UTF-8') as file:
@@ -121,7 +124,7 @@ class ApiDoc:
             with open(self.output_path + '/api_project.json',
                       encoding='UTF-8') as file:
                 project_obj = json.loads(file.read())
-            data_obj = sort_app_data(data_obj,project_obj.get('order'))
+            data_obj = sort_app_data(data_obj, project_obj.get('order'))
             text = render_markdown(__name__,
                                    'templates',
                                    'template.md',
