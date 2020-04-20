@@ -1,7 +1,8 @@
-from flask import Flask
+from flask import Flask, render_template, json
 from flask_apidoc_extend import ApiDoc
 
-app = Flask(__name__)
+
+app = Flask(__name__,template_folder='templates')
 ApiDoc(app=app, mount=True)
 
 @app.route('/user/<id>',methods=['GET'])
@@ -13,7 +14,7 @@ def user(id):
     @apiGroup User
     @apiPermission admin
    
-    @apiDescription get user's information
+    @apiDescription get user's information.获取用户资料
    
     @apiHeader {String} Authorization The token can be generated from your user profile.
     @apiHeaderExample {Header} Header-Example
@@ -36,9 +37,9 @@ def user(id):
     @apiSuccess {Object}   profile       Profile data (example for an Object)
     @apiSuccess {Number}   profile.age   Users age.
     @apiSuccess {String}   profile.image Avatar-Image.
-    @apiSuccess {Object[]} options       List of Users options (Array of Objects).
-    @apiSuccess {String}   options.name  Option Name.
-    @apiSuccess {String}   options.value Option Value.
+    @apiSuccess {Object[]} [options]       List of Users options (Array of Objects).
+    @apiSuccess {String}   [options.name]  Option Name.
+    @apiSuccess {String}   [options.value] Option Value.
    
     @apiError NoAccessRight Only authenticated Admins can access the data.
     @apiError UserNotFound   The <code>id</code> of the User was not found.
@@ -49,7 +50,40 @@ def user(id):
         {
           "error": "NoAccessRight"
         }
+    """    
+    return
+
+@app.route('/message',methods=['GET'])
+def create():
     """
-    return id,200
+    @apiGroup Other
+    @apiName GetMessage
+    @apiVersion 1.0.0
+    @api {GET} /message Get message
+
+    @apiDescription get messages from server
+
+    @apiParam {Number} id user's id
+    @apiSuccess {Number} id message's id
+    @apiSuccess {String} message user' message
+    
+    """
+    return 
+
+@app.route('/message',methods=['DELETE'])
+def del_message():
+    """
+    @apiGroup Other
+    @apiName DeleteMessage
+    @apiVersion 1.0.0
+    @api {DELETE} /message Delete message
+
+    @apiDescription delete message
+    
+    @apiParam {Number} id message's id
+    @apiSuccess {String} msg success
+    """
+    return
+
 if __name__ == "__main__":
      app.run()

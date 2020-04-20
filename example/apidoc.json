@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "description": "A Flask REST API Doc example",
   "title": "A Flask REST API Doc example",
-  "url" : "http://localhost:5000"
-
+  "url" : "http://localhost:5000",
+  "order":["User","GetMessage"]
 }
