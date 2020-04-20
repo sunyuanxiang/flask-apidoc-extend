@@ -2,7 +2,7 @@ from flask import Flask, render_template, json
 from flask_apidoc_extend import ApiDoc
 
 
-app = Flask(__name__,template_folder='templates')
+app = Flask(__name__)
 ApiDoc(app=app, mount=True)
 
 @app.route('/user/<id>',methods=['GET'])
