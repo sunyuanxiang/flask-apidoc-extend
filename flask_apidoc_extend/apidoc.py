@@ -87,7 +87,7 @@ class ApiDoc:
                 sys.stdout.write('Export success\n') \
                     if result else sys.stdout.write(
                     'No data can be exported\n')
-            sys.stdout.write('apidoc files has been generated into {}'
+            sys.stdout.write('apidoc files has been generated into {}\n'
                              .format(self.output_path))
             return popen.returncode
 
