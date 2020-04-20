@@ -6,9 +6,9 @@ with open("README.md", "r") as fh:
     
 setuptools.setup(
     name='Flask-Apidoc-Extend',
-    version='0.1.6',
-    packages=['flask_apidoc_extend','flask_apidoc_extend/templates'],
-    package_data={'':['*.md'],'flask_apidoc_extend':['*.md']},
+    version='0.1.7',
+    packages=setuptools.find_packages(),
+    # package_data={'flask_apidoc_extend':['*.md']},
     url='https://github.com/sunyuanxiang/flask-apidoc-extend',
     license='MIT',
     author='sun yuanxiang',
@@ -26,5 +26,5 @@ setuptools.setup(
         'Programming Language :: Python :: Implementation :: CPython'
     ],
     python_requires='>=3.5',
-    zip_safe=False
+    # zip_safe=False
 )
