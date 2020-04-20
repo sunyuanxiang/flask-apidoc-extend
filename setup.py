@@ -26,5 +26,5 @@ setuptools.setup(
         'Programming Language :: Python :: Implementation :: CPython'
     ],
     python_requires='>=3.5',
-    # zip_safe=False
+    zip_safe=False
 )
